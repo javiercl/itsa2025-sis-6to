@@ -1,0 +1,31 @@
+body {
+    background-color: antiquewhite;
+    margin: 2px;
+}
+
+header {
+    background-color: #d9d9d9;
+    margin-bottom: 2px;
+}
+
+nav {
+    background-color: #e9e9e9;
+    margin-bottom: 2px;
+}
+
+table {
+    background-color: #e9e9e9;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+}
+
+#col1 {
+    padding: 10px;
+    background-color: aqua;
+}
+
+#col2 {
+    padding: 10px;
+    background-color: blue
+}
