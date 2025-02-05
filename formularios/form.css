@@ -33,7 +33,7 @@ label {
 	margin:8px 0;
 }
 
-.marketing label,.rgpd {
+.marketing label, .rgpd {
     display:inline-block;
     font-weight:normal;
 }
