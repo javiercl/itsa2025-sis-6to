@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card con Imagen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing:border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .card {
+            width: 600px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.9);
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 15px;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: #666;
+            margin: 10px 0;
+        }
+
+        .card button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .card button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <img src="monkey-800x600.jpg" alt="Imagen de ejemplo">
+        <div class="card-content">
+            <h3>Los monos superan a los humanos</h3>
+            <p>En lo que respecta a la disposición a explorar opciones más eficientes para resolver un problema, los monos muestran una mayor flexibilidad cognitiva que los humanos, según un estudio realizado por investigadores de psicología de la Universidad Estatal de Georgia.</p>
+            <button>Ver más</button>
+        </div>
+    </div>
+
+</body>
+</html>
