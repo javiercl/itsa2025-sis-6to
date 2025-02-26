@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spinner Modal con Temporizador</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+
+        /* Estilo del modal con el spinner */
+        .modal-spinner {
+            display: none; /* 🔹 Asegura que el modal esté oculto al inicio */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+            align-items: center;
+            justify-content: center;
+        }
+
+        .spinner2 {
+            width: 30px;
+            height: 30px;
+            border: 7px dotted rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            animation: spin 2s linear infinite;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 6px solid rgba(255, 255, 255, 0.3);
+            border-top-color: yellow;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Bloquear la interacción de la página cuando el modal está activo */
+        .modal-active {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Ejemplo de Spinner Modal</h2>
+    <button onclick="activarSpinner()">Iniciar Proceso</button>
+
+    <!-- Modal con spinner -->
+    <div id="modalSpinner" class="modal-spinner">
+        <div class="spinner"></div>
+    </div>
+
+    <script>
+        function activarSpinner() {
+            console.log("Activando spinner...");
+
+            // Mostrar el modal con el spinner
+            let modal = document.getElementById("modalSpinner");
+
+            modal.style.display = "flex";
+            document.body.classList.add("modal-active"); // Bloquear scroll
+
+            // Desactivar el modal automáticamente después de 10 segundos
+            setTimeout(() => {
+                console.log("Finalizando proceso...");
+                modal.style.display = "none"; // Ocultar modal
+                document.body.classList.remove("modal-active"); // Restaurar scroll
+            }, 5000); // 5 segundos
+        }
+    </script>
+
+</body>
+</html>

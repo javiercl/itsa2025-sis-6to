@@ -1,0 +1,22 @@
+<datos>
+    <dato>
+        <etiqueta>Enero</etiqueta>
+        <valor>100</valor>
+    </dato>
+    <dato>
+        <etiqueta>Febrero</etiqueta>
+        <valor>150</valor>
+    </dato>
+    <dato>
+        <etiqueta>Marzo</etiqueta>
+        <valor>80</valor>
+    </dato>
+    <dato>
+        <etiqueta>Abril</etiqueta>
+        <valor>120</valor>
+    </dato>
+    <dato>
+        <etiqueta>Mayo</etiqueta>
+        <valor>60</valor>
+    </dato>
+</datos>

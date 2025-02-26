@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+        let jsonData = `{
+            "alumnos": [
+                {"numero_control": "A001", "nombre": "Juan Pérez", "sexo": "Masculino", "carrera": "Ingeniería en Sistemas", "semestre": 6},
+                {"numero_control": "A002", "nombre": "María González", "sexo": "Femenino", "carrera": "Licenciatura en Administración", "semestre": 4},
+                {"numero_control": "A003", "nombre": "Carlos López", "sexo": "Masculino", "carrera": "Arquitectura", "semestre": 8},
+                {"numero_control": "A004", "nombre": "Ana Martínez", "sexo": "Femenino", "carrera": "Ingeniería Civil", "semestre": 5},
+                {"numero_control": "A005", "nombre": "Pedro Ramírez", "sexo": "Masculino", "carrera": "Contaduría", "semestre": 3}
+            ]
+        }`;
+        
+        try {
+            let alumnos = JSON.parse(jsonData);
+
+        } catch (error) {
+            console.error("Error parsing JSON:", error.message);
+        }
+
+        // Mostrar los nombres de los alumnos
+        alumnos.alumnos.forEach(alumno => console.log(alumno.nombre));
+
+        // Leer archivo de texto en formato JSON 
+        fetch("alumnos.json")
+        .then(response => response.json()) // Convertir la respuesta a JSON
+        .then(data => {
+            console.log(data); // Mostrar el JSON en consola
+            data.alumnos.forEach(alumno => console.log(alumno.nombre)); // Mostrar nombres
+        })
+        .catch(error => console.error("Error al leer el JSON:", error));
+
+
+        // stringify
+        let person = {
+            name: "Javier",
+            age: 30,
+            city: "Mexico"
+        };
+        
+        let jsonString = JSON.stringify(person); // Convert JS object to JSON string
+        
+        console.log(jsonString); 
+
+        // find
+        let resultado = alumnos.alumnos.find(alumno => alumno.numero_control === "A002");
+        console.log(resultado); // Un solo resultado
+
+        let sistemas = alumnos.filter(alumno => alumno.carrera === "Sistemas");
+        console.log(sistemas); // varios resultados
+
+        let existeArquitectura = alumnos.some(alumno => alumno.carrera === "Arquitectura");
+        console.log(existeArquitectura); // true o false
+
+        let resultado2 = alumnos.filter(alumno => alumno.nombre.includes("Carlos"));
+        console.log(resultado);
+
+        let indice = alumnos.findIndex(alumno => alumno.numero_control === "A003");
+        console.log(indice); // 2
+
+        alumnos.sort((a, b) => a.nombre.localeCompare(b.nombre));
+        console.log(alumnos);
+
+        let resultado3 = alumnos.filter(alumno => alumno.carrera === "Sistemas" && alumno.semestre === 6);
+        console.log(resultado);
+
+
+        //Agregar una Nueva Clave-Valor a un Objeto JSON
+        let alumno = {
+            "numero_control": "A001",
+            "nombre": "Juan Pérez",
+            "carrera": "Ingeniería en Sistemas"
+        };
+        // Agregar un nuevo campo
+        alumno.semestre = 6;
+        alumno.correo = "juan.perez@example.com";
+        console.log(alumno);
+
+
+        // Agregar un Nuevo Objeto a un Array JSON (push())
+        let alumnos = [
+            { "numero_control": "A001", "nombre": "Juan Pérez", "carrera": "Sistemas" },
+            { "numero_control": "A002", "nombre": "María González", "carrera": "Administración" }
+        ];
+        // Agregar un nuevo alumno
+        alumnos.push({
+            "numero_control": "A003",
+            "nombre": "Carlos López",
+            "carrera": "Arquitectura"
+        });
+        console.log(alumnos);
+
+        // Modificar un Elemento en un JSON
+        //Para modificar un valor existente, solo accede a la propiedad y cambia su valor.
+        let alumno = {
+            "numero_control": "A001",
+            "nombre": "Juan Pérez",
+            "carrera": "Sistemas"
+        };
+        // Modificar valores
+        alumno.nombre = "Juan Carlos Pérez";
+        alumno.carrera = "Ingeniería en Software";
+        console.log(alumno);
+
+        // Modificar un Objeto dentro de un Array (find())
+        // Si el JSON es un array, usa .find() para encontrar y modificar un elemento específico
+        let alumnos = [
+            { "numero_control": "A001", "nombre": "Juan Pérez", "carrera": "Sistemas" },
+            { "numero_control": "A002", "nombre": "María González", "carrera": "Administración" }
+        ];
+        // Encontrar el alumno y modificarlo
+        let alumnoEncontrado = alumnos.find(alumno => alumno.numero_control === "A002");
+        if (alumnoEncontrado) {
+            alumnoEncontrado.carrera = "Contaduría"; // Modificar campo
+        }
+        console.log(alumnos);
+
+        //Eliminar un Elemento en un JSON
+        //Para eliminar un elemento, usa delete en objetos y .filter() en arrays.
+        //Eliminar una Propiedad de un Objeto (delete)
+        
+        let alumno = {
+            "numero_control": "A001",
+            "nombre": "Juan Pérez",
+            "carrera": "Sistemas",
+            "correo": "juan.perez@example.com"
+        };
+        // Eliminar la clave "correo"
+        delete alumno.correo;
+        console.log(alumno);
+
+    //Eliminar un Objeto de un Array JSON (filter())
+    //Si tienes un array de objetos JSON, usa .filter() para eliminar un objeto basado en una condición.
+
+    let alumnos = [
+        { "numero_control": "A001", "nombre": "Juan Pérez", "carrera": "Sistemas" },
+        { "numero_control": "A002", "nombre": "María González", "carrera": "Administración" }
+    ];
+    // Eliminar el alumno con numero_control "A001"
+    alumnos = alumnos.filter(alumno => alumno.numero_control !== "A001");
+    console.log(alumnos);
+
+    //Eliminar un Objeto de un Array usando findIndex() y splice()
+    //Si necesitas eliminar un solo objeto en lugar de filtrar toda la lista:
+    let index = alumnos.findIndex(alumno => alumno.numero_control === "A002");
+    if (index !== -1) {
+        alumnos.splice(index, 1); // Eliminar el objeto en la posición encontrada
+    }
+x`    console.log(alumnos);
+        
+    </script>
+</body>
+</html>

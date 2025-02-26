@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reloj Digital</title>
+    <style>
+        body {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #1e1e1e;
+        }
+        div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+        h1 {
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+        .reloj {
+            background-color: #000000;
+            border: 2px solid #333;
+            border-radius: 10px;
+            color: #00ff00;
+            font-size: 3.5rem;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            width: auto;
+            min-width: 300px;
+            padding: 20px 40px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div id="contId">
+        <h1>Reloj Digital</h1>
+        <p id="dateId" class="reloj"></p>
+    </div>
+
+    <script>
+        function padZero(num) {
+            return num.toString().padStart(2, '0');
+        }
+
+        function getDate() {
+            const date = new Date();
+            const hora = `${padZero(date.getHours())}:${padZero(date.getMinutes())}:${padZero(date.getSeconds())}`;
+            document.getElementById("dateId").textContent = hora;
+        }
+
+        window.onload = function() {
+            getDate(); // Mostrar la hora inmediatamente
+            setInterval(getDate, 1000);
+        }
+    </script>
+</body>
+</html>

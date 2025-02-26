@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            box-sizing:border-box;
+            width: 100%;
+            margin: 5px;
+            height: 100vh;
+            background-color: #dacb59;
+        }
+           
+        .wrapper {
+            display: grid;
+            grid-template-columns: 20% auto 20%;
+            grid-template-rows: 20% auto 20%;
+            grid-template-areas:
+                "header  header  header"
+                "left    content  right"
+                "footer  footer  footer";
+            grid-gap: 10px;
+            height: 100vh;
+            background-color: #e9570e;
+            color: #444;
+            align-content: strech;
+        }
+        
+        .header {
+            grid-area: header;
+            background-color: #FFF;
+            color: #000;
+            border-radius: 5px;
+            padding: 20px;
+            font-size: 150%;
+            text-align: center;
+        }
+
+        .aside1 {
+            grid-area: left;
+            background-color: #FFF;
+            color: #000;
+            border-radius: 5px;
+            padding: 20px;
+            font-size: 150%;
+        }
+
+        .main {
+            grid-area: content;
+            background-color: #FFF;
+            color: #000;
+            border-radius: 5px;
+            padding: 20px;
+            font-size: 150%;
+        }
+
+        .aside2 {
+            grid-area: right;
+            background-color: #FFF;
+            color: #000;
+            border-radius: 5px;
+            padding: 20px;
+            font-size: 150%;
+        }
+
+        .footer {
+            grid-area: footer;
+            background-color: #FFF;
+            color: #000;
+            border-radius: 5px;
+            padding: 20px;
+            font-size: 150%;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">Encabezado</div>
+        <div class="aside1">Menu Izq</div>
+        <div class="main">Contenido</div>
+        <div class="aside2">Menu Der</div>
+        <div class="footer">Pie de Pagina</div>
+     </div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruta Optimizada con Google Maps</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        #map { width: 100%; height: 500px; margin-top: 20px; }
+        .btn { padding: 10px 20px; font-size: 16px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 5px; }
+        .btn:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+
+    <h2>Ruta Optimizada con Google Maps Directions API</h2>
+    <button class="btn" onclick="generarRuta()">Optimizar Ruta</button>
+    <div id="map"></div>
+
+    <script>
+        let map, directionsService, directionsRenderer;
+
+        // Lista de posiciones en orden (optimización incluida en API)
+        const posiciones = [
+            { lat: 19.4326, lng: -99.1332, desc: "CDMX" },
+            { lat: 19.0511, lng: -98.2033, desc: "Puebla" },
+            { lat: 18.4655, lng: -97.3942, desc: "Orizaba" },
+            { lat: 17.0732, lng: -96.7266, desc: "Oaxaca" }
+        ];
+
+        function initMap() {
+            // Inicializa el mapa centrado en el primer punto
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: posiciones, 
+                zoom: 7,
+            });
+
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer = new google.maps.DirectionsRenderer({ map: map });
+        }
+
+        function generarRuta() {
+            // Configurar la solicitud de ruta optimizada
+            const request = {
+                origin: posiciones[0], // Primer punto (CDMX)
+                destination: posiciones[posiciones.length - 1], // Último punto (Oaxaca)
+                waypoints: posiciones.slice(1, -1).map(pos => ({ location: pos, stopover: true })), // Puntos intermedios
+                travelMode: 'DRIVING', // Modo de viaje en coche
+                optimizeWaypoints: true // 🔥 Optimiza la mejor ruta automáticamente
+            };
+
+            // Solicitar la ruta a Google Maps
+            directionsService.route(request, (result, status) => {
+                if (status === 'OK') {
+                    directionsRenderer.setDirections(result);
+                } else {
+                    alert('Error al generar la ruta: ' + status);
+                }
+            });
+        }
+    </script>
+
+    <!-- Cargar la API de Google Maps (Reemplaza TU_API_KEY con tu clave) -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcWzr_WZIkeHlnyAge6uKrQrUxFp6xNsU&callback=initMap"></script>
+
+</body>
+</html>

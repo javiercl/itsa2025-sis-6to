@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubicación en el Mapa</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        #map { width: 100%; height: 400px; margin-top: 20px; }
+        .btn { padding: 10px 20px; font-size: 16px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 5px; }
+        .btn:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+
+    <h2>Obtener Ubicación y Mostrar en el Mapa</h2>
+    <button class="btn" onclick="obtenerUbicacion()">Mostrar Ubicación</button>
+    <p id="ubicacion">Ubicación: No disponible</p>
+    <div id="map"></div>
+
+    <script>
+        let map, marcador;
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: 0, lng: 0 },
+                zoom: 15,
+            });
+
+            marcador = new google.maps.Marker({
+                position: { lat: 0, lng: 0 },
+                map: map,
+                title: "Tu ubicación",
+            });
+        }
+
+        function obtenerUbicacion() {
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        let latitud = position.coords.latitude;
+                        let longitud = position.coords.longitude;
+
+                        document.getElementById("ubicacion").textContent = `Ubicación: Latitud ${latitud}, Longitud ${longitud}`;
+
+                        // Actualizar el mapa con la ubicación
+                        let nuevaUbicacion = { lat: latitud, lng: longitud };
+                        map.setCenter(nuevaUbicacion);
+                        marcador.setPosition(nuevaUbicacion);
+                    },
+                    (error) => {
+                        let mensajeError;
+                        switch (error.code) {
+                            case error.PERMISSION_DENIED:
+                                mensajeError = "El usuario denegó el permiso de geolocalización.";
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                mensajeError = "La ubicación no está disponible.";
+                                break;
+                            case error.TIMEOUT:
+                                mensajeError = "Tiempo de espera agotado para obtener la ubicación.";
+                                break;
+                            default:
+                                mensajeError = "Error desconocido al obtener la ubicación.";
+                                break;
+                        }
+                        document.getElementById("ubicacion").textContent = `Error: ${mensajeError}`;
+                    },
+                    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+                );
+            } else {
+                document.getElementById("ubicacion").textContent = "Geolocalización no soportada en este navegador.";
+            }
+        }
+    </script>
+
+    <!-- Cargar la API de Google Maps (Reemplaza TU_API_KEY con tu clave de Google Maps) -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcWzr_WZIkeHlnyAge6uKrQrUxFp6xNsU&callback=initMap"></script>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p {
+            background-color: blue;
+            color: #FFF;
+            width: 200px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <p id="valorId"></p>
+    <script>
+        window.onload = () => {
+            let a,b,c;
+            a=5;
+            b=8.5;
+            c=7;
+            p = document.getElementById("valorId")
+            if(a > b && a > c){
+                p.textContent = `el valor de a:${a} es mayor que los valores de b:${b} y c:${c}`;
+            }
+        }
+    </script>
+</body>
+</html>

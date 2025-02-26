@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de Modal de Error</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <button onclick="mostrarError('Ocurrió un error inesperado.')">Mostrar Error</button>
+
+    <!-- Modal de error -->
+    <div id="modalError" class="modal">
+        <div class="modal-content">
+            <div class="modal-title">❌ Error</div>
+            <div id="modalMessage" class="modal-message"></div>
+            <button class="close-btn" onclick="cerrarError()">Cerrar</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
