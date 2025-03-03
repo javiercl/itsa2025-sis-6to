@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Tabla de frutas</h1>
+    <div id="root"></div>
+    <script>
+        let frutas = [
+            {nombre: 'Manzana', imoji: '🍎'},
+            {nombre: 'Pera', imoji: '🍐'},
+            {nombre: 'Banana', imoji: '🍌'},
+            {nombre: 'Naranja', imoji: '🍊'},
+            {nombre: 'Mango', imoji: '🥭'},
+        ];
+        const root = document.getElementById('root');
+        const table = document.createElement('table');
+        root.appendChild(table);
+
+        frutas.forEach((fruta)=>{
+            tr = document.createElement("tr");
+            td1 = document.createElement("td");
+            td2 = document.createElement("td");
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            td1.textContent = fruta.nombre;
+            td2.textContent = fruta.imoji;  
+            table.appendChild(tr);
+        });
+
+        // Estilo
+        table.style.borderCollapse = "collapse";
+        table.style.width = "100%";
+
+        let celdas = table.getElementsByTagName("td");
+        for (let celda of celdas) {
+            celda.style.border = "2px solid black";
+            celda.style.padding = "10px";
+            celda.style.backgroundColor = "#f2f2f2";
+            celda.style.textAlign = "center";
+            celda.style.fontSize = "1.5em";
+        }
+
+    </script>
+</body>
+</html>

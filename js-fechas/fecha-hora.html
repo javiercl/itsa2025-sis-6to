@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reloj Digital</title>
+    <title>Reloj Digital con Formulario</title>
     <style>
         body {
             width: 100vw;
@@ -38,12 +38,76 @@
             text-align: center;
             box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
         }
+        
+        /* Estilos para el formulario */
+        form {
+            background-color: #2a2a2a;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            width: 300px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            color: #ffffff;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background-color: #1a1a1a;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+        }
+
+        input[type="submit"] {
+            background-color: #00ff00;
+            color: #000000;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #00cc00;
+        }
+
+        .error {
+            color: #ff4444;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
     <div id="contId">
         <h1>Reloj Digital</h1>
         <p id="dateId" class="reloj"></p>
+
+        <!-- Añadimos el formulario -->
+        <form id="timeForm" onsubmit="return setCustomTime(event)">
+            <div class="form-group">
+                <label for="hours">Horas (0-23):</label>
+                <input type="number" id="hours" name="hours" min="0" max="23" required>
+            </div>
+            <div class="form-group">
+                <label for="minutes">Minutos (0-59):</label>
+                <input type="number" id="minutes" name="minutes" min="0" max="59" required>
+            </div>
+            <div class="form-group">
+                <label for="seconds">Segundos (0-59):</label>
+                <input type="number" id="seconds" name="seconds" min="0" max="59" required>
+            </div>
+            <input type="submit" value="Establecer Hora">
+        </form>
     </div>
 
     <script>
@@ -60,6 +124,30 @@
         window.onload = function() {
             getDate(); // Mostrar la hora inmediatamente
             setInterval(getDate, 1000);
+        }
+
+        function setCustomTime(event) {
+            event.preventDefault();
+            
+            const hours = parseInt(document.getElementById('hours').value);
+            const minutes = parseInt(document.getElementById('minutes').value);
+            const seconds = parseInt(document.getElementById('seconds').value);
+
+            // Validación
+            if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59 || seconds < 0 || seconds > 59) {
+                alert('Por favor, ingrese valores válidos');
+                return false;
+            }
+
+            const customDate = new Date();
+            customDate.setHours(hours);
+            customDate.setMinutes(minutes);
+            customDate.setSeconds(seconds);
+
+            document.getElementById("dateId").textContent = 
+                `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`;
+
+            return false;
         }
     </script>
 </body>
