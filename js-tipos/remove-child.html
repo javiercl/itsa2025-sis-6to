@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo removeChild</title>
+    <style>
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .item {
+            background: #f0f0f0;
+            padding: 10px;
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .delete-btn {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .delete-btn:hover {
+            background: #cc0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Lista de Elementos</h2>
+        <button onclick="agregarElemento()">Agregar Elemento</button>
+        <div id="lista">
+            <div class="item">
+                Elemento 1
+                <button class="delete-btn" onclick="eliminarElemento(this)">Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Método 1: Eliminar usando removeChild
+        function eliminarElemento(boton) {
+            const elemento = boton.parentNode;
+            const lista = document.getElementById('lista');
+            lista.removeChild(elemento);
+        }
+
+        // Método 2: Eliminar elemento específico por ID
+        function eliminarPorId(id) {
+            const elemento = document.getElementById(id);
+            if (elemento && elemento.parentNode) {
+                elemento.parentNode.removeChild(elemento);
+            }
+        }
+
+        // Método 3: Eliminar todos los hijos de un elemento
+        function eliminarTodos() {
+            const lista = document.getElementById('lista');
+            while (lista.firstChild) {
+                lista.removeChild(lista.firstChild);
+            }
+        }
+
+        // Función para agregar elementos nuevos
+        let contador = 2;
+        function agregarElemento() {
+            const lista = document.getElementById('lista');
+            const nuevoElemento = document.createElement('div');
+            nuevoElemento.className = 'item';
+            nuevoElemento.innerHTML = `
+                Elemento ${contador}
+                <button class="delete-btn" onclick="eliminarElemento(this)">Eliminar</button>
+            `;
+            lista.appendChild(nuevoElemento);
+            contador++;
+        }
+
+        // Ejemplo de uso con removeChild y eventos
+        document.addEventListener('DOMContentLoaded', () => {
+            // Agregar botón para eliminar todos
+            const container = document.querySelector('.container');
+            const btnEliminarTodos = document.createElement('button');
+            btnEliminarTodos.textContent = 'Eliminar Todos';
+            btnEliminarTodos.onclick = eliminarTodos;
+            btnEliminarTodos.style.marginLeft = '10px';
+            container.querySelector('button').after(btnEliminarTodos);
+        });
+    </script>
+</body>
+</html> 

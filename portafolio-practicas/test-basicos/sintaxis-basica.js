@@ -138,10 +138,98 @@ let mensajesAprobados = estudiantes
 console.log("Mensajes de aprobados:");
 mensajesAprobados.forEach(mensaje => console.log(mensaje));
 
+// Crear un array de ejemplo
+let frutas = ['manzana', 'banana', 'naranja'];
+let numeros = [1, 2, 3, 4, 5];
+
+// 1. Métodos para agregar/eliminar elementos
+console.log('--- Métodos para agregar/eliminar ---');
+frutas.push('pera');              // Añade al final
+frutas.unshift('fresa');          // Añade al inicio
+frutas.pop();                     // Elimina y retorna el último
+frutas.shift();                   // Elimina y retorna el primero
+frutas.splice(1, 1);              // Elimina desde posición 1, cantidad 1
+
+// 2. Métodos para buscar elementos
+console.log('--- Métodos de búsqueda ---');
+let indice = frutas.indexOf('banana');           // Retorna índice o -1
+let incluye = frutas.includes('manzana');        // Retorna true/false
+let encontrado = numeros.find(n => n > 3);       // Retorna el primer elemento que cumple
+let indiceEncontrado = numeros.findIndex(n => n > 3); // Retorna índice del primer elemento
+
+// 3. Métodos de transformación
+console.log('--- Métodos de transformación ---');
+let duplicados = numeros.map(n => n * 2);        // [2,4,6,8,10]
+let filtrados = numeros.filter(n => n > 3);      // [4,5]
+let suma = numeros.reduce((acc, n) => acc + n, 0); // 15
+let reverso = numeros.reverse();                 // Invierte el array
+
+// 4. Métodos de ordenamiento
+console.log('--- Métodos de ordenamiento ---');
+let desordenados = [3, 1, 4, 1, 5];
+desordenados.sort();                             // Ordena (como strings)
+desordenados.sort((a, b) => a - b);             // Ordena números correctamente
+
+// 5. Métodos de iteración
+console.log('--- Métodos de iteración ---');
+numeros.forEach(n => console.log(n));           // Itera sin retornar
+let todosPositivos = numeros.every(n => n > 0); // true si todos cumplen
+let algunoGrande = numeros.some(n => n > 4);    // true si alguno cumple
+
+// 6. Métodos de conversión
+console.log('--- Métodos de conversión ---');
+let texto = frutas.join(', ');                  // Une con separador
+let copia = frutas.slice();                     // Crea copia del array
+let subArray = numeros.slice(1, 3);             // Extrae porción del array
+
+// 7. Métodos de concatenación
+console.log('--- Métodos de concatenación ---');
+let unidos = frutas.concat(numeros);            // Une arrays
+let expandido = [...frutas, ...numeros];        // Spread operator (ES6)
+
+// Ejemplos prácticos
+console.log('--- Ejemplos prácticos ---');
+
+// Ejemplo 1: Filtrar y transformar
+let precios = [10, 20, 30, 40, 50];
+let preciosConDescuento = precios
+    .filter(p => p > 20)
+    .map(p => p * 0.9);
+
+// Ejemplo 2: Encontrar elementos únicos
+let numerosRepetidos = [1, 2, 2, 3, 3, 4];
+let unicos = [...new Set(numerosRepetidos)];
+
+// Ejemplo 3: Agrupar elementos
+let productos = [
+    {categoria: 'fruta', nombre: 'manzana'},
+    {categoria: 'verdura', nombre: 'zanahoria'},
+    {categoria: 'fruta', nombre: 'banana'}
+];
+
+let porCategoria = productos.reduce((acc, prod) => {
+    acc[prod.categoria] = acc[prod.categoria] || [];
+    acc[prod.categoria].push(prod.nombre);
+    return acc;
+}, {});
+
+// Ejemplo 4: Ordenamiento complejo
+let items = [
+    {nombre: 'Z', precio: 10},
+    {nombre: 'A', precio: 20},
+    {nombre: 'C', precio: 15}
+];
+
+items.sort((a, b) => {
+    if (a.precio === b.precio) {
+        return a.nombre.localeCompare(b.nombre);
+    }
+    return a.precio - b.precio;
+});
+
 // INSTRUCCIONES PARA EL ESTUDIANTE:
 // 1. Copia este código en un archivo .js
 // 2. Ejecútalo con Node.js o en la consola del navegador
 // 3. Analiza la salida para entender cada operación
 // 4. Modifica el código para experimentar con diferentes valores
 // 5. Intenta crear tus propios ejemplos utilizando estos conceptos
-

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Tangerine">
+    <style>
+
+
+    </style>
+</head>
+<body>
+    <h1>Lista de Tareas</h1>
+    <label for="task">Tarea:</label><input type="text" name="task" id="inputId" placeholder="Añade una nueva tarea..." required>
+    <button id="addBtn">+</button>
+    <ul id="listId"></ul>
+    <script>
+        const addBtn = document.getElementById('addBtn');
+        const inputId = document.getElementById('inputId');
+        const listId = document.getElementById('listId');
+
+        addBtn.addEventListener('click', () => {
+            
+            const task = document.createElement('li');
+            task.textContent = inputId.value;
+            listId.appendChild(task);
+            inputId.value = '';
+            
+            const delBtn = document.createElement('button');
+            delBtn.textContent = 'X';
+            task.appendChild(delBtn);
+
+            delBtn.addEventListener('click', () => {
+                listId.removeChild(task);
+            });
+
+            listId.appendChild(task);
+            inputId.value = '';
+        });
+
+    </script>
+</body>
+</html>

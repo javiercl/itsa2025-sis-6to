@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Métodos de Array en JavaScript</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .method {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .description {
+            color: #34495e;
+        }
+        .example {
+            font-family: monospace;
+            background-color: #f8f9fa;
+            padding: 2px 4px;
+        }
+        .category {
+            background-color: #e8f4f8;
+            font-weight: bold;
+            color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Métodos de Array en JavaScript</h1>
+    <table id="methodsTable">
+        <thead>
+            <tr>
+                <th>Método</th>
+                <th>Descripción</th>
+                <th>Ejemplo</th>
+                <th>Resultado</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        const arrayMethods = [
+            {
+                category: 'Agregar/Eliminar',
+                methods: [
+                    {
+                        method: 'push()',
+                        description: 'Añade elementos al final',
+                        example: '[1,2].push(3)',
+                        result: '[1,2,3]'
+                    },
+                    {
+                        method: 'pop()',
+                        description: 'Elimina y retorna el último',
+                        example: '[1,2,3].pop()',
+                        result: '3'
+                    }
+                ]
+            },
+            {
+                category: 'Transformación',
+                methods: [
+                    {
+                        method: 'map()',
+                        description: 'Crea nuevo array transformado',
+                        example: '[1,2].map(x => x*2)',
+                        result: '[2,4]'
+                    },
+                    {
+                        method: 'filter()',
+                        description: 'Filtra elementos',
+                        example: '[1,2,3].filter(x => x>1)',
+                        result: '[2,3]'
+                    }
+                ]
+            }
+        ];
+
+        function populateTable() {
+            const tbody = document.querySelector('#methodsTable tbody');
+            arrayMethods.forEach(category => {
+                // Añadir categoría
+                const categoryRow = document.createElement('tr');
+                categoryRow.innerHTML = `
+                    <td colspan="4" class="category">${category.category}</td>
+                `;
+                tbody.appendChild(categoryRow);
+
+                // Añadir métodos de la categoría
+                category.methods.forEach(({method, description, example, result}) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="method">${method}</td>
+                        <td class="description">${description}</td>
+                        <td class="example">${example}</td>
+                        <td class="example">${result}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', populateTable);
+    </script>
+</body>
+</html> 
