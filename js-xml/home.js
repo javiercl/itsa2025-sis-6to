@@ -8,7 +8,7 @@ document.getElementById("fileInput").addEventListener("change", function(event) 
     reader.onload = function(e) {
         const xmlText = e.target.result;
 
-        // Convertir el texto en un objeto XML
+        // Convertir el texto en un objeto XML  
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(xmlText, "application/xml");
 

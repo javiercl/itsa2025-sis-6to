@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renderización en HTML, CSS y JavaScript</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #1e1e1e;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        .slide {
+            display: none;
+            padding: 50px;
+            width: 80%;
+            margin: auto;
+            background: #333;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .active {
+            display: block;
+        }
+        h1 {
+            color: #ffcc00;
+        }
+        p {
+            font-size: 20px;
+            color: #ddd;
+        }
+        ul {
+            text-align: left;
+            display: inline-block;
+            font-size: 18px;
+            color: #ddd;
+        }
+        code {
+            display: block;
+            background: #222;
+            padding: 10px;
+            border-radius: 5px;
+            color: #ffcc00;
+            font-size: 18px;
+        }
+        .nav-buttons {
+            margin-top: 20px;
+        }
+        button {
+            padding: 12px 20px;
+            font-size: 18px;
+            background: #ffcc00;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            background: #ffaa00;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide active">
+        <h1>Renderización en HTML, CSS y JavaScript</h1>
+        <p>¿Cómo y cuándo se renderiza una página web?</p>
+    </div>
+    <div class="slide">
+        <h1>1. ¿Qué es Renderizar?</h1>
+        <p>Imagina que tienes una receta de cocina en papel. Para que puedas comer el pastel, alguien debe seguir la receta y prepararlo.</p>
+        <p>En términos de desarrollo web:</p>
+        <ul>
+            <li>El código HTML, CSS y JavaScript es la "receta".</li>
+            <li>El navegador es el "chef".</li>
+            <li>El resultado en pantalla es el "pastel".</li>
+        </ul>
+        <p>Renderizar es el proceso de convertir el código en algo visual y funcional.</p>
+    </div>
+    <div class="slide">
+        <h1>Ejemplo de Renderización</h1>
+        <p>Si escribimos este código en una página web:</p>
+        <code>&lt;h1&gt;Hola Mundo&lt;/h1&gt;</code>
+        <p>El navegador lo renderiza mostrando "Hola Mundo" en la pantalla.</p>
+        <p>Si luego ejecutamos este JavaScript:</p>
+        <code>document.querySelector("h1").innerText = "Hola, Javier!";</code>
+        <p>El navegador re-renderiza el texto con el nuevo mensaje.</p>
+    </div>
+    <div class="slide">
+        <h1>2. Renderización en el Cliente vs. Servidor</h1>
+        <p>Renderización en el cliente:</p>
+        <ul>
+            <li>El HTML es cargado primero.</li>
+            <li>El JavaScript obtiene y renderiza los datos dinámicamente.</li>
+            <li>Ejemplo: React, Vue.js.</li>
+        </ul>
+        <p>Renderización en el servidor:</p>
+        <ul>
+            <li>El servidor genera el HTML ya procesado.</li>
+            <li>El cliente recibe la página lista para mostrarse.</li>
+            <li>Ejemplo: PHP, Next.js.</li>
+        </ul>
+    </div>
+    <div class="slide">
+        <h1>3. Renderización Incremental</h1>
+        <p>Algunas aplicaciones web modernas implementan técnicas de renderizado incremental para mejorar la velocidad:</p>
+        <ul>
+            <li>Lazy Loading</li>
+            <li>Hydration (para aplicaciones React y Vue)</li>
+            <li>SSR con prefetching de datos</li>
+        </ul>
+    </div>
+    <div class="slide">
+        <h1>4. Optimización de Renderizado</h1>
+        <p>Para mejorar el rendimiento:</p>
+        <ul>
+            <li>Usar <code>requestAnimationFrame()</code> para animaciones fluidas.</li>
+            <li>Evitar cambios frecuentes en el DOM.</li>
+            <li>Aplicar técnicas de memoización y caching.</li>
+            <li>Utilizar Web Workers para procesos pesados.</li>
+        </ul>
+    </div>
+    <div class="slide">
+        <h1>¡Gracias por tu atención!</h1>
+        <p>¿Tienes preguntas o dudas?</p>
+    </div>
+    <div class="nav-buttons">
+        <button onclick="prevSlide()">Anterior</button>
+        <button onclick="nextSlide()">Siguiente</button>
+    </div>
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+    </script>
+</body>
+</html>

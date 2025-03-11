@@ -7,8 +7,6 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Tangerine">
     <style>
-
-
     </style>
 </head>
 <body>
@@ -17,27 +15,41 @@
     <button id="addBtn">+</button>
     <ul id="listId"></ul>
     <script>
+
         const addBtn = document.getElementById('addBtn');
         const inputId = document.getElementById('inputId');
         const listId = document.getElementById('listId');
 
-        addBtn.addEventListener('click', () => {
-            
+        inputId.value = '';
+        inputId.focus();
+
+        let tareas;
+
+        localStorage.getItem('tareas') ? tareas = JSON.parse(localStorage.getItem('tareas')) : tareas = [];
+
+        tareas.forEach(tarea => {
             const task = document.createElement('li');
-            task.textContent = inputId.value;
+            task.textContent = tarea;
             listId.appendChild(task);
-            inputId.value = '';
-            
+
             const delBtn = document.createElement('button');
             delBtn.textContent = 'X';
             task.appendChild(delBtn);
 
-            delBtn.addEventListener('click', () => {
-                listId.removeChild(task);
+            delBtn.addEventListener('click', (event) => {
+                const texto = event.target.parentElement.firstChild.textContent
+                const tareas_nvo = tareas.filter( (t) => t !== texto );
+                localStorage.setItem('tareas', JSON.stringify(tareas_nvo));
+                window.location.reload();
             });
 
             listId.appendChild(task);
-            inputId.value = '';
+
+        });
+
+        addBtn.addEventListener('click', () => {
+            localStorage.setItem('tareas', JSON.stringify([...tareas, inputId.value]));
+            window.location.reload();
         });
 
     </script>
