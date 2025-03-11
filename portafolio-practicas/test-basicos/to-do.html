@@ -48,6 +48,7 @@
         });
 
         addBtn.addEventListener('click', () => {
+            
             localStorage.setItem('tareas', JSON.stringify([...tareas, inputId.value]));
             window.location.reload();
         });
