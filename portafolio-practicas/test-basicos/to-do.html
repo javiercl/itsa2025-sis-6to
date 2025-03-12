@@ -48,10 +48,21 @@
         });
 
         addBtn.addEventListener('click', () => {
-            
+            tareas.filter((f) => f === inputId.value) ? alert('El elemento ya existe') : 
             localStorage.setItem('tareas', JSON.stringify([...tareas, inputId.value]));
             window.location.reload();
         });
+
+        inputId.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                tareas.filter((f) => f === inputId.value) ? alert('El elemento ya existe') : 
+                localStorage.setItem('tareas', JSON.stringify([...tareas, inputId.value]));
+                window.location.reload();
+            }
+        });
+
+
+
 
     </script>
 </body>

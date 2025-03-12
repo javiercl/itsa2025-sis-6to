@@ -5,63 +5,165 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ruta Optimizada con Google Maps</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
-        #map { width: 100%; height: 500px; margin-top: 20px; }
-        .btn { padding: 10px 20px; font-size: 16px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 5px; }
-        .btn:hover { background: #0056b3; }
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            padding: 20px; 
+            margin: 0;
+        }
+        #map { 
+            width: 100%; 
+            height: 70vh; 
+            margin-top: 20px; 
+        }
+        .btn { 
+            padding: 10px 20px; 
+            font-size: 16px; 
+            cursor: pointer; 
+            background: #007bff; 
+            color: white; 
+            border: none; 
+            border-radius: 5px; 
+            margin: 10px;
+        }
+        .btn:hover { 
+            background: #0056b3; 
+        }
+        #info-panel {
+            margin: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .marker-info {
+            margin: 5px 0;
+            color: #333;
+        }
     </style>
 </head>
 <body>
-
-    <h2>Ruta Optimizada con Google Maps Directions API</h2>
-    <button class="btn" onclick="generarRuta()">Optimizar Ruta</button>
+    <h2>Ruta Optimizada entre Ciudades</h2>
+    <button class="btn" onclick="generarRuta()">Calcular Ruta Óptima</button>
+    <div id="info-panel"></div>
     <div id="map"></div>
 
     <script>
         let map, directionsService, directionsRenderer;
+        let markers = [];
 
-        // Lista de posiciones en orden (optimización incluida en API)
+        // Lista de posiciones con ciudades
         const posiciones = [
-            { lat: 19.4326, lng: -99.1332, desc: "CDMX" },
+            { lat: 19.4326, lng: -99.1332, desc: "Ciudad de México" },
             { lat: 19.0511, lng: -98.2033, desc: "Puebla" },
             { lat: 18.4655, lng: -97.3942, desc: "Orizaba" },
             { lat: 17.0732, lng: -96.7266, desc: "Oaxaca" }
         ];
 
         function initMap() {
-            // Inicializa el mapa centrado en el primer punto
+            // Inicializar servicios de Google Maps
+            directionsService = new google.maps.DirectionsService();
+            
+            // Configurar el mapa
             map = new google.maps.Map(document.getElementById("map"), {
-                center: posiciones, 
+                center: { lat: 18.5, lng: -98.0 }, // Centro aproximado entre las ciudades
                 zoom: 7,
+                mapTypeControl: true,
+                streetViewControl: true,
+                fullscreenControl: true
             });
 
-            directionsService = new google.maps.DirectionsService();
-            directionsRenderer = new google.maps.DirectionsRenderer({ map: map });
+            // Configurar el renderizador de direcciones
+            directionsRenderer = new google.maps.DirectionsRenderer({
+                map: map,
+                suppressMarkers: true // No mostrar marcadores automáticos
+            });
+
+            // Colocar marcadores iniciales
+            colocarMarcadores();
+        }
+
+        function colocarMarcadores() {
+            // Limpiar marcadores existentes
+            markers.forEach(marker => marker.setMap(null));
+            markers = [];
+
+            // Crear nuevos marcadores
+            posiciones.forEach((pos, index) => {
+                const marker = new google.maps.Marker({
+                    position: { lat: pos.lat, lng: pos.lng },
+                    map: map,
+                    title: pos.desc,
+                    label: (index + 1).toString()
+                });
+
+                // Agregar ventana de información
+                const infoWindow = new google.maps.InfoWindow({
+                    content: `<div style="padding: 10px"><h3>${pos.desc}</h3></div>`
+                });
+
+                marker.addListener('click', () => {
+                    infoWindow.open(map, marker);
+                });
+
+                markers.push(marker);
+            });
         }
 
         function generarRuta() {
-            // Configurar la solicitud de ruta optimizada
+            // Configurar la solicitud de ruta
             const request = {
-                origin: posiciones[0], // Primer punto (CDMX)
-                destination: posiciones[posiciones.length - 1], // Último punto (Oaxaca)
-                waypoints: posiciones.slice(1, -1).map(pos => ({ location: pos, stopover: true })), // Puntos intermedios
-                travelMode: 'DRIVING', // Modo de viaje en coche
-                optimizeWaypoints: true // 🔥 Optimiza la mejor ruta automáticamente
+                origin: { lat: posiciones[0].lat, lng: posiciones[0].lng },
+                destination: { lat: posiciones[posiciones.length - 1].lat, lng: posiciones[posiciones.length - 1].lng },
+                waypoints: posiciones.slice(1, -1).map(pos => ({
+                    location: { lat: pos.lat, lng: pos.lng },
+                    stopover: true
+                })),
+                travelMode: google.maps.TravelMode.DRIVING,
+                optimizeWaypoints: true
             };
 
-            // Solicitar la ruta a Google Maps
+            // Solicitar la ruta
             directionsService.route(request, (result, status) => {
                 if (status === 'OK') {
                     directionsRenderer.setDirections(result);
+                    mostrarInformacionRuta(result);
                 } else {
-                    alert('Error al generar la ruta: ' + status);
+                    console.error('Error:', status);
+                    alert('Error al calcular la ruta: ' + status);
                 }
             });
         }
+
+        function mostrarInformacionRuta(result) {
+            const route = result.routes[0];
+            let distanciaTotal = 0;
+            let tiempoTotal = 0;
+            let infoHTML = '<h3>Información de la Ruta</h3>';
+
+            // Calcular totales y generar información por tramo
+            route.legs.forEach((leg, index) => {
+                distanciaTotal += leg.distance.value;
+                tiempoTotal += leg.duration.value;
+                infoHTML += `
+                    <div class="marker-info">
+                        <strong>Tramo ${index + 1}:</strong> 
+                        ${leg.start_address.split(',')[0]} → ${leg.end_address.split(',')[0]}<br>
+                        Distancia: ${leg.distance.text} | Tiempo: ${leg.duration.text}
+                    </div>`;
+            });
+
+            // Mostrar totales
+            infoHTML += `
+                <div style="margin-top: 15px; font-weight: bold;">
+                    Distancia total: ${(distanciaTotal / 1000).toFixed(1)} km<br>
+                    Tiempo estimado: ${Math.round(tiempoTotal / 3600)} horas ${Math.round((tiempoTotal % 3600) / 60)} minutos
+                </div>`;
+
+            document.getElementById('info-panel').innerHTML = infoHTML;
+        }
     </script>
 
-    <!-- Cargar la API de Google Maps (Reemplaza TU_API_KEY con tu clave) -->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcWzr_WZIkeHlnyAge6uKrQrUxFp6xNsU&callback=initMap"></script>
-
+    <!-- Cargar la API de Google Maps -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfSDFKFFh-mi1m1CZaAmtcBSKiNYb87a4&callback=initMap"></script>
 </body>
 </html>
