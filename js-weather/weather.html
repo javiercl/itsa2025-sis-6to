@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta del Clima</title>
+    <style>
+        body {
+            width: 100vw;
+            height: 100vh;
+            padding: 0px;
+            margin: 0x;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            width: 400px;
+            height: 300px;
+            padding: 5px;
+            border: 1px solid black;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.8);
+            box-sizing: border-box;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: baseline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Aplicación del Clima 🌦️</h2>
+        <input type="text" id="ciudad" placeholder="Ingresa la ciudad">
+        <button id="buscar">Buscar Clima</button>
+        <div id="resultado"></div>
+    </div>
+
+    <script src="weather.js"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cámara con grabación</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        video {
+            max-width: 600px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>📷 Cámara Web con Grabación 🎬</h2>
+
+    <video id="video" autoplay muted></video>
+    <br>
+
+    <button id="btnCamara">Activar Cámara</button>
+    <button id="btnGrabar" disabled>Iniciar Grabación</button>
+    <button id="btnDetener" disabled>Detener Grabación</button>
+    <br><br>
+
+    <video id="grabacion" controls></video>
+    <br>
+    <a id="descargar" style="display:none;">⬇️ Descargar Video</a>
+
+    <script src="camara.js"></script>
+
+</body>
+</html>

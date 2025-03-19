@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            border: 1px solid black;
+        }
+
+        body {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+            width: 100vw;
+            height: auto;
+        }
+
+        .container {
+            position: relative;
+            background-color: yellow;
+            margin-left: 10%;
+            margin-right: 10%;
+            width: 80%;
+            height: 800px;
+            margin-bottom: 50px;
+        }
+
+        .header {
+            background-color: aquamarine;
+            width: 100%;
+            height: 120px;
+        }
+        .content {
+            background-color: aqua;
+            width: 100%;
+            height: 600px;
+        }
+
+        .header1 {
+            background-color: azure;
+            width: 100%;
+            height: 65%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+        .header2 {
+            background-color: rgb(238, 159, 114);
+            width: 100%;
+            height: 35%;
+        }
+        #logo {
+            width: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header1">
+                <img src="imagenes/logo-saas.png" alt="Logo" id="logo">
+                <button id="btn-opciones">Opciones</button>
+                <input type="file" id="input"/>
+                <button id="btn-sesion">Sesion</button>
+            </div>
+            <div class="header2">
+
+            </div>
+        </div>
+        <div class="content">
+
+        </div>
+    </div>
+</body>
+</html>

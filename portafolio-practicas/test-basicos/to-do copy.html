@@ -8,95 +8,85 @@
           href="https://fonts.googleapis.com/css?family=Tangerine">
     <style>
 
-        body {
+         body {
             margin: 0px;
             padding: 0px;
-            width: 100vw;
-            height: 100vh;
-            background-color: aquamarine;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             box-sizing: border-box;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        }
+            height: 100vh;
+            width: 100vw;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+         }
 
         .container {
-            background-color: burlywood;
             width: 400px;
             height: 300px;
-            margin: 0px;
-            padding-left: 10px;
-            padding-right: 10px;
-            padding-bottom: 10px;
+            padding: 5px;
             border: 1px solid black;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
             display:flex;
             flex-wrap: wrap;
-            align-content:baseline;
-            overflow-y: auto;
-            position: relative;
-        }
-
-        .titulo {
-            width: 100%;
-            height: auto;
-            padding-bottom: 5px;
-            display:flex;
-            flex-wrap: wrap;
-            position: sticky;
-            top: 0;
-            background-color: burlywood;
+            align-content: baseline;
         }
 
         h1 {
-            padding: 0px;
             margin: 0px;
+            width: 100%;
+            height: 15%;
+            text-align: center;
         }
 
         label {
+            margin: 0px;
             width: 100%;
+            height: 8%;
         }
 
         #inputId {
+            margin: 0px;
             width: 85%;
+            height: 8%;
         }
 
         #addBtn {
-            width: 35px;
+            width: 10%;
             margin-right: 0px;
             margin-left: auto;
         }
 
         #listId {
-            list-style-type: none;
+            width: 100%;
             padding: 0px;
+            margin-left: 0px;
+            margin-top: 10px;
+            list-style-type: none;
         }
 
         .delBtn {
-            width: 20px;
+            color: red;
+            font-weight: 800;
+            height: 30px;
         }
 
         li {
             display: flex;
             justify-content: space-between;
+            align-content: center;
             align-items: center;
-            border-radius: 5px;
-            background-color: cornsilk;
             margin-top: 5px;
-            padding: 5px;
+            padding: 3px;
+            background-color: rgb(221, 215, 215);
+
         }
 
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="titulo">
-            <h1>Lista de Tareas</h1>
-            <label for="task">Tarea:</label><input type="text" name="task" id="inputId" placeholder="Añade una nueva tarea..." required>
-            <button id="addBtn">+</button>
-        </div>
+        <h1>Lista de Tareas</h1>
+        <label for="task">Tarea:</label><input type="text" name="task" id="inputId" placeholder="Añade una nueva tarea..." required>
+        <button id="addBtn">+</button>
         <ul id="listId"></ul>
     </div>
     <script>
@@ -112,15 +102,13 @@
 
         localStorage.getItem('tareas') ? tareas = JSON.parse(localStorage.getItem('tareas')) : tareas = [];
 
-        tareas.sort((a,b) => a.localeCompare(b))
-
         tareas.forEach(tarea => {
             const task = document.createElement('li');
             task.textContent = tarea;
             listId.appendChild(task);
 
             const delBtn = document.createElement('button');
-            delBtn.textContent = 'X';
+            delBtn.textContent = '✂︎';
             delBtn.className = 'delBtn';
             task.appendChild(delBtn);
 
@@ -136,16 +124,16 @@
         });
 
         addBtn.addEventListener('click', () => {
-            tareas.filter((f) => f.toUpperCase() === inputId.value.toUpperCase()).length > 0 ? alert('El elemento ya existe') : 
-            localStorage.setItem('tareas', JSON.stringify([...tareas, inputId.value]));
-            window.location.reload();
+            tareas.filter((f) => f.toUpperCase() === inputId.value.toUpperCase()).length ? alert('El elemento ya existe') : 
+                localStorage.setItem('tareas', JSON.stringify([...tareas, inputId.value]));
+                window.location.reload();
         });
 
         inputId.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
                 tareas.filter((f) => f.toUpperCase() === inputId.value.toUpperCase()).length ? alert('El elemento ya existe') : 
-                localStorage.setItem('tareas', JSON.stringify([...tareas, inputId.value]));
-                window.location.reload();
+                    localStorage.setItem('tareas', JSON.stringify([...tareas, inputId.value]));
+                    window.location.reload();
             }
         });
 
