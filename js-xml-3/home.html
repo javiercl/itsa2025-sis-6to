@@ -34,7 +34,7 @@
             <div class="headOptions">
                 <div class="crear">
                     <div class="btnNew">
-                        <button id="btnAdd">Crear</button>
+                        <button onclick="modalCreate()" name="btnCreate" id="btnCreateId">Crear</button>
                     </div>
                 </div>
                 <div class="registros">
@@ -46,7 +46,6 @@
                 </div>
             </div>
         </div>
-
 
         <div class="contenido">
             <table width="100%">
@@ -67,7 +66,7 @@
         </div>
         
         <div class="modal" id="modalId">
-            <form action="#" name="alumno_form">
+            <form action="handleSubmit()" name="alumno_form" id="formId">
                 <label for="ncontrol">Numero de Control:</label>
                 <input type="text" id="ncontrol" name="ncontrol" placeholder="Escribe tu numero de control" maxlength="10">
     
@@ -79,30 +78,39 @@
     
                 <label for="sexo">Sexo</label>
                 <div class="sexo">		
-                    <input type="radio" value="F" id="fem"><label for="fem">Femenino</label>
-                    <input type="radio" value="M" id="mas"><label for="mas">Masculino</label>
+                    <input type="radio" name="sexo" value="F" id="fem"><label for="fem">Femenino</label>
+                    <input type="radio" name="sexo" value="M" id="mas"><label for="mas">Masculino</label>
                 </div>
     
                 <label for="carrera">Carrera</label>
                 <select name="carrera" id="carrera" size="3">
-                    <option value="Sistemas Computacionales">Sistemas Computacionales</option>
-                    <option value="Ingeniería Civil">Ingeniería Civil</option>
-                    <option value="Ingeniería Industrial">Ingeniería Industrial</option>
-                    <option value="Arquitectura">Arquitectura</option>
-                    <option value="Ingeniería Bioquímica">Ingeniería Bioquímica</option>
-                    <option value="Ingeniería Mecatrónica">Ingeniería Mecatrónica</option>  
-                    <option value="Licenciatura en Administración">Licenciatura en Administración</option>
+                    <option>Ingeniería Industrial</option>
+                    <option>Ingeniería Mecatrónica</option>
+                    <option>Ingeniería Electrónica</option>
+                    <option>Ingeniería en Sistemas Computacionales</option>
+                    <option>Ingeniería Bioquímica</option>
+                    <option>Licenciatura en Administración</option>
+                    <option>Arquitectura</option>
                 </select>
             
                 <label for="semestre">Semestre</label>
                 <input type="number" name="semestre" id="semestre" size="2">
-    
-    
-                <button type="submit" name="aceptar">Aceptar</button>
+                
+                <div class="modal-buttons-container">  
+                    <button type="submit" name="aceptar" class="button-save">Guardar</button>
+                    <button type="cancel" name="cancelar" class="button-cancel" id="button-cancel-id">Cancelar</button>
+                </div>
         
             </form>
         </div>
 
+        <div id="mensaje-container" class="mensaje-container">
+            <div class="mensaje-content">
+                <p id="mensaje-texto"></p>
+                <button id="mensaje-btn" class="mensaje-btn">Aceptar</button>
+            </div>
+        </div>
+        
     </div>
     <script src="home.js"></script>
 </body>

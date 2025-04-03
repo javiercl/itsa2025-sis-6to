@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="reloj">Reloj</h1>
+
+    <script>
+        window.addEventListener('load', () => {
+            const reloj = document.getElementById('reloj');
+            
+            setInterval(() => {
+                const fecha = new Date();
+                const hora = fecha.getHours();
+                const minutos = fecha.getMinutes();
+                const segundos = fecha.getSeconds();
+
+                reloj.innerHTML = `${hora}:${minutos}:${segundos}`;
+
+            }, 1000);
+
+        });
+    </script>
+</body>
+</html>

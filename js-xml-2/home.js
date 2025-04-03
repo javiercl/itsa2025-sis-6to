@@ -1,11 +1,57 @@
 
 
-const estudiantes = (localStorage.getItem("estudiantes") ? localStorage.getItem("estudiantes") : null) 
+document.getElementById('formId').addEventListener('submit', handelLoginSubmit)
 
-if (estudiantes) {
-    
+
+const xmlstr = (localStorage.getItem("xmlfile")) ? localStorage.getItem("xmlfile") : "";
+if (xmlstr) {
+    generarTabla(xmlstr);
 }
 
+function handelLoginSubmit(e){
+    e.preventDefault(); 
+    if (xmlstr) {
+        const form = document.getElementById("formId");
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xmlstr, "application/xml");
+        estudiantes = xmlDoc.getElementsByTagName("Estudiantes")
+        estudiante = xmlDoc.createElement("Estudiante")
+
+        // Crear en nodo Estudiate
+        ncontrol =  xmlDoc.createElement("NumeroControl")
+        ncontrol.textContent = form.ncontrol.value
+        nombre =  xmlDoc.createElement("Nombre")
+        nombre.textContent = form.nombre.value
+        curp =  xmlDoc.createElement("CURP")
+        curp.textContent = form.curp.value
+        sexo =  xmlDoc.createElement("Sexo")
+        sexo.textContent = form.sexo.value
+        semestre =  xmlDoc.createElement("Semestre")
+        semestre.textContent = form.semestre.value
+        carrera =  xmlDoc.createElement("Carrera")
+        carrera.textContent = form.carrera.value
+        estudiante.appendChild(ncontrol)
+        estudiante.appendChild(nombre)
+        estudiante.appendChild(curp)
+        estudiante.appendChild(sexo)
+        estudiante.appendChild(semestre)
+        estudiante.appendChild(carrera)
+
+        estudiantes.appendChild(estudiante)
+
+        const serializer = new XMLSerializer();
+        const xmlString = serializer.serializeToString(xmlDoc);
+        localStorage.setItem("xmlfile",JSON.stringify(xmlDoc))
+
+        location.reload()
+    } else {
+        alert('Favor de importar el archivo xml')
+    }
+}
+
+function modalCreate(){
+    document.getElementById("modalId").style.display = "flex";
+}
 
 document.getElementById("fileInput").addEventListener("change", function(event) {
     const file = event.target.files[0]; 
@@ -15,15 +61,16 @@ document.getElementById("fileInput").addEventListener("change", function(event) 
 
     reader.onload = function(e) {
         const xmlText = e.target.result;
+        localStorage.setItem("xmlfile",xmlText)
+        // Convertir el texto en un objeto XML  
+        generarTabla(xmlText)
+    }
 
-        localStorage.setItem("estudiantes", xmlText);
-
-        cargarEstudiantes(xmlText);
-    };
+    reader.readAsText(file); // Leer el archivo como texto
 });
 
-function cargarEstudiantes(xmlText) {
-    // Convertir el texto en un objeto XML  
+function generarTabla(xmlText){
+
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(xmlText, "application/xml");
 
@@ -98,14 +145,8 @@ function cargarEstudiantes(xmlText) {
         // 2. Agregarlo al contenedor
         tbody.appendChild(nuevaFila);
     }
+};
 
-    reader.readAsText(file); // Leer el archivo como texto
-}
-
-// Boton Crear
-document.getElementById("btnAdd").addEventListener("click", function() {
-    document.getElementById("modalId").style.display = 'flex'    
-});
 
 // Boton Editar
 document.querySelectorAll(".btnEdit").forEach(boton => {
