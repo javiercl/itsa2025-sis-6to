@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3 id="h1">Has click en el boton para solicitar datos</h3>
+    <button id="btn">Solicitar datos</button>
+
+    <script>
+        window.addEventListener('load', () => {
+
+            const boton = document.getElementById('btn');
+            const h1 = document.getElementById('h1');
+
+            boton.addEventListener('click', () => {
+                h1.innerHTML = 'Esperando datos...'
+                fetch('https://jsonplaceholder.typicode.com/posts/101')
+                .then(response => response.json())
+                .then(data => h1.innerHTML = JSON.stringify(data))
+                .catch(error => h1.innerHTML = 'Error al solicitar datos')
+            })
+        })
+    </script>
+</body>
+</html>
