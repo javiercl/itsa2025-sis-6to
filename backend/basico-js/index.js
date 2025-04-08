@@ -62,6 +62,7 @@ app.use((err, req, res, next) => {
     res.status(500).json({ message: 'Algo salió mal!' });
 });
 
+// Iniciar el servidor
 app.listen(port, () => {
     console.log(`Servidor corriendo en http://localhost:${port}`);
 });
