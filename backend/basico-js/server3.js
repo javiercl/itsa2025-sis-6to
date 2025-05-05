@@ -13,7 +13,7 @@ const ERROR_MESSAGES = {
 };
 
 // Configuración de MongoDB Atlas
-const uri = `mongodb+srv://jvrcisneros:KLyjDxJ37nvGcBQI@cluster0.1k9yb.mongodb.net/dbhtld100?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://user:pass@cluster0.1k9yb.mongodb.net/db_name?retryWrites=true&w=majority`;
 const client = new MongoClient(uri);
 
 // Middleware para parsear JSON
