@@ -1,0 +1,337 @@
+* {
+    box-sizing: border-box;
+
+}
+
+body {
+    padding: 0px;
+    margin: 0px;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.8em;
+}
+
+.wraper {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background-color: rgb(137, 188, 221);
+    width: 1024px;
+    height: 100%;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.8);
+}
+
+.contenido {
+    overflow-y:scroll;
+}
+
+table {
+    border-collapse: collapse;
+}
+table > thead {
+    position:sticky;
+    top : 0px;
+    background-color: rgb(244, 242, 239);
+    height: 40px;
+}
+
+table > tbody > tr > td {
+    padding: 5px;
+    text-align: center;
+}
+
+table > tbody > tr > td img {
+    width: 20px;
+    margin-left: 5px;
+}
+
+#foto {
+    width: 50px;
+}
+
+.headOptions {
+    display: flex;
+    justify-content:space-between;  
+    width: 100%;
+    background-color: burlywood;
+    box-shadow: 0 0 10px rgba(0,0,0,0.8);
+}
+
+.headOptions {
+    display: flex;
+    justify-content:space-between;  
+    width: 100%;
+    background-color: burlywood;
+    box-shadow: 0 0 10px rgba(0,0,0,0.8);
+}
+
+.crear {
+    display: flex;
+    align-items: center ;
+    margin-left: 5px;
+}
+
+.crear > .btnNew  a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.registros {
+    display: flex;
+    align-items: center;
+    gap:5px;
+    margin-right: 5px;
+}
+
+.registros > div {
+    display: flex;
+    align-items: center;
+    gap:5px;
+}
+
+.registros > div a {
+    display: flex;
+    align-items: center;
+    gap:5px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.registros > div > a:hover {
+    background-color:beige;
+    box-shadow: 0 0 10px rgba(0,0,0,0.8);
+}
+
+.crear img {
+    width: 22px;
+    height: 20px;
+}
+
+.crear a:hover {
+    background-color:beige;
+    box-shadow: 0 0 10px rgba(0,0,0,0.8);
+}
+
+.registros img {
+    width: 20px;
+
+}
+
+.encabezado {
+    display:flex;   
+    flex-direction: column;
+    background-color: rgb(71, 146, 243);
+    top: 0px;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.menu > ul {
+    height: 80%;
+    width: 10%;
+    padding: 5px;
+}
+
+.menu > ul > li {
+    position: relative;
+    display: grid;
+    place-items: center;
+    list-style: none;
+    height: 100%;
+}
+
+.menu > ul > li > a {
+    display: grid;
+    place-items: center;
+    text-decoration: none;
+    height: 100%;
+}
+
+.menu ul li:hover .submenu {
+   display: block;
+   position:absolute;
+   top: 100%;
+   left: 0px;
+}
+
+.menu ul li:hover .submenu_sesion {
+    display: block;
+    position:absolute;
+    top: 100%;
+    left: calc(-100% - 20px);
+ }
+
+.logo {
+    width:50px;
+}
+
+.submenu, .submenu_sesion {
+    display: none;
+    min-width: 200px;
+    background-color: azure;
+    padding: 5px;
+    z-index: 1000;
+    box-shadow: 0 0 10px rgba(0,0,0,0.8);
+    border-radius: 5px;
+}
+
+.submenu > li, .submenu_sesion > li {
+    height: 35px;
+}
+
+.submenu > li > a, .submenu_sesion > li > a {
+    display: grid;
+    justify-items: start;
+    align-items: center;
+    text-decoration: none;
+    height: 100%;
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.submenu li:hover, .submenu_sesion li:hover {
+    background-color: #c5c8cbe0;
+}
+
+.menu > ul > li:hover {
+    background-color: rgba(19, 98, 226, 0.877);
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.8);
+}
+
+a {
+    color: black;
+}
+
+.modal {
+    display:none;
+    justify-content: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    height: auto;
+    background-color: blanchedalmond;
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    background-color: bisque;
+    font-size: large;
+}
+
+form > input, form > select {
+    margin-bottom: 10px;
+    font-size: medium;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.button-save {
+    all: unset;
+    padding: 10px;
+    background-color: rgba(19, 98, 226, 0.877);
+    color: white;
+    font-size: medium;
+    width: 100%;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.button-save:hover {
+    background-color: rgba(5, 53, 130, 0.877);
+    cursor: pointer;
+}
+
+.button-cancel {
+    all: unset;
+    padding: 10px;
+    background-color: rgba(248, 8, 8, 0.877);
+    color: white;
+    font-size: medium;
+    width: 100%;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.button-cancel:hover {
+    background-color: rgba(160, 3, 3, 0.877);
+    cursor: pointer;
+}
+
+.modal-buttons-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+/* Estilos para el mensaje personalizado */
+.mensaje-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.mensaje-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+}
+
+.mensaje-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.mensaje-btn:hover {
+    background-color: #0056b3;
+}
+
+.mensaje-error {
+    border-left: 4px solid #dc3545;
+}
+
+.mensaje-success {
+    border-left: 4px solid #28a745;
+}
