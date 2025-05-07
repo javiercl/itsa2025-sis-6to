@@ -1,15 +1,72 @@
-const xmlstr = (localStorage.getItem("xmlfile")) ? localStorage.getItem("xmlfile") : `<?xml version='1.0' encoding='utf-8'?><Estudiantes></Estudiantes>`;
-if (xmlstr) {
-    generarTabla(xmlstr);
-} else {
-    // Obtener datos de la API
-    fetch('http://localhost:3000/alumnos')
-        .then(response => response.json())
-        .then(data => {
-            generarTabla(data);
-        })
-        .catch(error => console.error('Error al obtener datos:', error));
-}
+// Obtener datos de la API
+fetch('http://localhost:3000/alumnos')
+.then(response => response.json())
+.then(data => {
+    console.log('Respuesta:', data);
+    generarTabla(data);
+})
+.catch(error => console.error('Error al enviar datos:', error));
+
+document.getElementById('btn-carga-masiva').addEventListener('click', () => {
+    // Crear input file temporal
+    const input = document.('input');
+    input.type = 'file';
+    input.accept = '.xml';
+    
+    input.onchange = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        
+        reader.onload = (event) => {
+            const xmlContent = event.target.result;
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(xmlContent, "application/xml");
+            
+            // Obtener todos los estudiantes del XML
+            const estudiantes = xmlDoc.getElementsByTagName("Estudiante");
+            const alumnos = [];
+            
+            // Convertir cada estudiante a un objeto
+            for (let i = 0; i < estudiantes.length; i++) {
+                const estudiante = estudiantes[i];
+                alumnos.push({
+                    numeroControl: estudiante.getElementsByTagName("NumeroControl")[0].textContent,
+                    nombre: estudiante.getElementsByTagName("Nombre")[0].textContent,
+                    curp: estudiante.getElementsByTagName("CURP")[0].textContent,
+                    sexo: estudiante.getElementsByTagName("Sexo")[0].textContent,
+                    semestre: estudiante.getElementsByTagName("Semestre")[0].textContent,
+                    carrera: estudiante.getElementsByTagName("Carrera")[0].textContent,
+                    fotografia: estudiante.getElementsByTagName("Fotografia")[0].textContent
+                });
+            }
+            
+            // Enviar datos al servidor
+            fetch('http://localhost:3000/alumnos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ alumnos })
+            })
+            .then(response => response.json())
+            .then(data => {
+                mostrarMensaje(data.data, 'success');
+                // Recargar la tabla después de la carga
+                setTimeout(() => {
+                    location.reload();
+                }, 1500);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                mostrarMensaje('Error al cargar los datos', 'error');
+            });
+        };
+        
+        reader.readAsText(file);
+    };
+    
+    input.click();
+});
 
 document.getElementById('formId').addEventListener('submit', handelLoginSubmit)
 
