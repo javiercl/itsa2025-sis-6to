@@ -5,7 +5,7 @@ const app = express();
 
 
 // Configuración de MongoDB Atlas
-const uri = `mongodb+srv://jvrcisneros:@cluster0.1k9yb.mongodb.net/escolares?retryWrites=true&w=majority&appName=Cluster0`;
+const uri = `mongodb+srv://jvrcisneros:KLyjDxJ37nvGcBQI@cluster0.1k9yb.mongodb.net/escolares?retryWrites=true&w=majority&appName=Cluster0`;
 const client = new MongoClient(uri);
 
 // Middleware para parsear JSON

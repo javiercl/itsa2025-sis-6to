@@ -185,22 +185,17 @@ function modalCreate(){
 
 
 function generarTabla(jsonData){
-
-    const parser = new DOMParser();
-    const xmlDoc = parser.parseFromString(xmlText, "application/xml");
-
-    // Obtener nodos del XML (ejemplo: todos los <Estudiante>)
-    const estudiantes = xmlDoc.getElementsByTagName("Estudiante");
-
-    for (let i = 0; i < estudiantes.length; i++) {
-        // Get elements of xml file
-        let imagen = estudiantes[i].getElementsByTagName("Fotografia")[0].textContent;
-        let ncontrol = estudiantes[i].getElementsByTagName("NumeroControl")[0].textContent;
-        let curp = estudiantes[i].getElementsByTagName("CURP")[0].textContent;
-        let nombre = estudiantes[i].getElementsByTagName("Nombre")[0].textContent;
-        let sexo = estudiantes[i].getElementsByTagName("Sexo")[0].textContent;
-        let carrera = estudiantes[i].getElementsByTagName("Carrera")[0].textContent;
-        let semestre = estudiantes[i].getElementsByTagName("Semestre")[0].textContent;
+    // Iterar sobre cada estudiante en el array JSON
+    jsonData.forEach((estudiante, i) => {
+        // Get elements from JSON
+        let imagen = estudiante.Fotografia;
+        let ncontrol = estudiante.NumeroControl;
+        let curp = estudiante.CURP;
+        let nombre = estudiante.Nombre;
+        let sexo = estudiante.Sexo;
+        let carrera = estudiante.Carrera;
+        let semestre = estudiante.Semestre;
+        
         // get element tbody
         const tbody = document.getElementById("tbody")
         // 1. Crear el nuevo elemento tr y sus td
@@ -232,7 +227,6 @@ function generarTabla(jsonData){
         td_curp.textContent = `${curp}`;
         nuevaFila.appendChild(td_curp)
 
-
         let td_sexo = document.createElement("td");
         td_sexo.textContent = `${sexo}`;
         nuevaFila.appendChild(td_sexo)
@@ -259,7 +253,7 @@ function generarTabla(jsonData){
 
         // 2. Agregarlo al contenedor
         tbody.appendChild(nuevaFila);
-    }
+    });
 };
 
 
