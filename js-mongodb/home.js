@@ -61,7 +61,6 @@ input.onchange = (e) => {
     reader.readAsText(file);
 };
 
-
 document.getElementById('formId').addEventListener('submit', handelLoginSubmit)
 
 document.getElementById('button-cancel-id').addEventListener('click', ()=> {

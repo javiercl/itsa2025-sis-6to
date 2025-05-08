@@ -6,8 +6,8 @@
     "scripts": {
         "start": "node server.js",
         "dev": "nodemon server.js",
-        "debug": "node --inspect server2.js",
-        "debug:brk": "nodemon --inspect-brk src/server2.js"
+        "debug": "node --inspect server3.js",
+        "debug:brk": "nodemon --inspect-brk src/server3.js"
     },
     "dependencies": {
         "cors": "^2.8.5",

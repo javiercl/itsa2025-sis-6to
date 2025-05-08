@@ -1,5 +1,6 @@
 const express = require('express');
 const { MongoClient } = require('mongodb');
+const cors = require('cors');
 const port = 3000;
 const app = express();
 
@@ -10,7 +11,7 @@ const client = new MongoClient(uri);
 
 // Middleware para parsear JSON
 app.use(express.json());
-
+app.use(cors());
 // Conectar a MongoDB Atlas
 async function connectDB() {
     try {
