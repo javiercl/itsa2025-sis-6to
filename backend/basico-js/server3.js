@@ -1,5 +1,5 @@
 const express = require('express');
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 const cors = require('cors');
 const port = 3000;
 const app = express();
@@ -57,6 +57,116 @@ app.get('/alumnos', async (req, res) => {
         res.status(200).json({
             success: true,
             data: result
+        });
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            error: err.message
+        });
+    }
+});
+
+// Ruta para crear un alumno individual
+app.post('/alumno', async (req, res) => {
+    try {
+        const alumno = req.body;
+        const database = client.db('escolares');
+        const alumnosCollection = database.collection('alumnos');
+        const result = await alumnosCollection.insertOne(alumno);
+        res.status(201).json({
+            success: true,
+            data: {
+                message: 'Alumno creado correctamente',
+                id: result.insertedId
+            }
+        });
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            error: err.message
+        });
+    }
+});
+
+// Ruta para actualizar un alumno
+app.put('/alumno/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const alumnoActualizado = req.body;
+        const database = client.db('escolares');
+        const alumnosCollection = database.collection('alumnos');
+        
+        const result = await alumnosCollection.updateOne(
+            { _id: new ObjectId(id) },
+            { $set: alumnoActualizado }
+        );
+
+        if (result.matchedCount === 0) {
+            return res.status(404).json({
+                success: false,
+                error: 'Alumno no encontrado'
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            data: 'Alumno actualizado correctamente'
+        });
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            error: err.message
+        });
+    }
+});
+
+// Ruta para eliminar un alumno
+app.delete('/alumno/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const database = client.db('escolares');
+        const alumnosCollection = database.collection('alumnos');
+        
+        const result = await alumnosCollection.deleteOne({ _id: new ObjectId(id) });
+
+        if (result.deletedCount === 0) {
+            return res.status(404).json({
+                success: false,
+                error: 'Alumno no encontrado'
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            data: 'Alumno eliminado correctamente'
+        });
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            error: err.message
+        });
+    }
+});
+
+// Ruta para obtener un alumno específico
+app.get('/alumno/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const database = client.db('escolares');
+        const alumnosCollection = database.collection('alumnos');
+        
+        const alumno = await alumnosCollection.findOne({ _id: new ObjectId(id) });
+        
+        if (!alumno) {
+            return res.status(404).json({
+                success: false,
+                error: 'Alumno no encontrado'
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            data: alumno
         });
     } catch (err) {
         res.status(500).json({

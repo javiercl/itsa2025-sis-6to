@@ -66,7 +66,7 @@
         </div>
         
         <div class="modal" id="modalId">
-            <form action="handleSubmit()" name="alumno_form" id="formId">
+            <form id="formId" name="alumno_form">
                 <label for="ncontrol">Numero de Control:</label>
                 <input type="text" id="ncontrol" name="ncontrol" placeholder="Escribe tu numero de control" maxlength="10">
     
@@ -76,10 +76,12 @@
                 <label for="curp">Curp:</label>
                 <input type="text" id="curp" name="curp" placeholder="Escribe tu Curp" maxlength="18">
     
-                <label for="sexo">Sexo</label>
+                <label for="sexo">Sexo:</label>
                 <div class="sexo">		
-                    <input type="radio" name="sexo" value="F" id="fem"><label for="fem">Femenino</label>
-                    <input type="radio" name="sexo" value="M" id="mas"><label for="mas">Masculino</label>
+                    <input type="radio" name="sexo" value="F" id="fem">
+                    <label for="fem">Femenino</label>
+                    <input type="radio" name="sexo" value="M" id="mas">
+                    <label for="mas">Masculino</label>
                 </div>
     
                 <label for="carrera">Carrera</label>
@@ -97,8 +99,8 @@
                 <input type="number" name="semestre" id="semestre" size="2">
                 
                 <div class="modal-buttons-container">  
-                    <button type="submit" name="aceptar" class="button-save">Guardar</button>
-                    <button type="cancel" name="cancelar" class="button-cancel" id="button-cancel-id">Cancelar</button>
+                    <button type="submit" class="button-save">Guardar</button>
+                    <button type="button" class="button-cancel" id="button-cancel-id">Cancelar</button>
                 </div>
         
             </form>

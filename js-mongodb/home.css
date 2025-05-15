@@ -51,6 +51,9 @@ table > tbody > tr > td img {
     margin-left: 5px;
 }
 
+table > tbody > tr > td img:hover {
+    cursor: pointer;
+}
 #foto {
     width: 50px;
 }
