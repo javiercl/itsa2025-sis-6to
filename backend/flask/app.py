@@ -2,12 +2,14 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from pymongo import MongoClient
 from bson import ObjectId
+import certifi
 
 app = Flask(__name__)
 CORS(app)
 
 # Configuración de MongoDB
-client = MongoClient('mongodb+srv://jvrcisneros:KLyjDxJ37nvGcBQI@cluster0.1k9yb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+client = MongoClient('mongodb+srv://jvrcisneros:KLyjDxJ37nvGcBQI@cluster0.1k9yb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', tlsCAFile=certifi.where())
+
 db = client['escolares']
 alumnos = db['alumnos']
 
